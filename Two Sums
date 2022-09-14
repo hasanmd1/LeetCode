@@ -1,0 +1,41 @@
+#include <vector>
+#include <iostream>
+
+vector<int> find(vector<int>& nums, int a, int b);
+
+class Solution {
+public:
+    vector<int> find(vector<int>& nums, int a, int b){
+        int k = -1, l = -1, count = 0;
+        for(int i = 0; i < int(nums.size()); i++){
+            if(nums[i] == a && k == -1){
+                k = i;
+                count++;
+            }
+            if(nums[i] == b){
+                l = i;
+                count++;
+            }
+        }
+        count = 0;
+        return {k, l};
+    }
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> nums1 = nums;
+        sort(nums1.begin(), nums1.end());
+        int left = 0, right = int(nums.size())-1, temp;
+        while(left < right){
+            temp = nums1[left] + nums1[right];
+            if(temp == target){
+                return {find(nums, nums1[left], nums1[right])};
+            }
+            else if(temp > target){
+                right--;
+            }
+            else{
+                left++;
+            }
+        }
+        return {-1, -1};
+    }
+};
